@@ -1,0 +1,27 @@
+/* 
+  loc.strings
+  WaxpeerTest
+
+  Created by Zhakhangir on 07.04.2024.
+  
+*/
+
+//Gen
+
+
+//Home
+"home_title" = "Home";
+"home_activateBtn" = "Activate live";
+"home_disactivateBtn" = "Pause live";
+
+//Inventory
+"inventory_title" = "Inventory";
+
+//Sales
+"sales_title" = "Sales";
+
+//Delivery
+"delivery_title" = "Delivery";
+
+//Profile
+"profile_title" = "Profile";
