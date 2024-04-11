@@ -47,7 +47,9 @@ enum TabControllers: Int, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .home:
-            return HomeViewController()
+            let viewModel = HomeViewModel()
+            let vc = HomeViewController(viewModel: viewModel)
+            return vc
         case .inventory:
             return InventoryViewController()
         case .sales:

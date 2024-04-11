@@ -6,10 +6,49 @@
 //
 
 import UIKit
+import Combine
+
+enum LiveP2PState {
+    case subscribed
+    case unsubsribed
+    case error
+    
+    var color: UIColor? {
+        switch self {
+        case .subscribed:
+            return R.color.wpGreen()
+        case .unsubsribed:
+            return R.color.wpGray()
+        case .error:
+            return R.color.wpRed()
+        }
+    }
+    
+    var actionTitle: String {
+        switch self {
+        case .subscribed:
+            return R.string.loc.home_disactivateBtn()
+        case .unsubsribed:
+            return R.string.loc.home_activateBtn()
+        case .error:
+            return R.string.loc.home_retryBtn()
+        }
+    }
+    
+    var actionColor: UIColor? {
+        switch self {
+        case .subscribed, .error:
+            return R.color.wpGray()
+        case .unsubsribed:
+            return  R.color.wpGreen()
+        }
+    }
+}
+
 
 class ActivateP2PCell: UICollectionViewCell {
-    let state = LiveP2PState.disactive
-    let stateImageView = UIImageView()
+    private let stateImageView = UIImageView()
+    var subscribers = Set<AnyCancellable>()
     let actionButton = UIButton()
     
     override init(frame: CGRect) {
@@ -24,17 +63,26 @@ class ActivateP2PCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        subscribers = Set<AnyCancellable>()
+    }
+    
+    func configure(_ state: LiveP2PState) {
+        stateImageView.tintColor = state.color
+        actionButton.setTitle(state.actionTitle, for: .normal)
+        actionButton.backgroundColor = state.actionColor
+    }
+    
     private func addSubviews() {
         let stateImage = R.image.powerSocket()?.withRenderingMode(.alwaysTemplate)
         stateImageView.image = stateImage
-        stateImageView.tintColor = state.color
         stateImageView.contentMode = .scaleAspectFit
         contentView.addSubview(stateImageView)
         
-        actionButton.setTitle(state.actionTitle, for: .normal)
-        actionButton.backgroundColor = state.actionColor
         actionButton.layer.cornerRadius = 8
-        actionButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        actionButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         actionButton.titleLabel?.textColor = .white
         contentView.addSubview(actionButton)
     }

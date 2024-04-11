@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         customizeAppearance()
+        configureConstants()
         
         return true
     }
@@ -29,21 +30,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         customNavBarAppearance.backgroundColor = R.color.wpLightBlack()
         customNavBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-    
         UINavigationBar.appearance().scrollEdgeAppearance = customNavBarAppearance
         UINavigationBar.appearance().compactAppearance = customNavBarAppearance
         UINavigationBar.appearance().standardAppearance = customNavBarAppearance
-        if #available(iOS 15.0, *) {
-            UINavigationBar.appearance().compactScrollEdgeAppearance = customNavBarAppearance
-        }
-        
+       
         let customTabBarAppearance = UITabBarAppearance()
         customTabBarAppearance.configureWithOpaqueBackground()
         customTabBarAppearance.backgroundColor = R.color.wpLightBlack()
-        customTabBarAppearance.selectionIndicatorTintColor = .white
-        
-        UITabBar.appearance().scrollEdgeAppearance = customTabBarAppearance
+        UITabBar.appearance().tintColor = .white
         UITabBar.appearance().standardAppearance = customTabBarAppearance
+        
+        if #available(iOS 15.0, *) {
+            UINavigationBar.appearance().compactScrollEdgeAppearance = customNavBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = customTabBarAppearance
+        }
+    }
+    
+    func configureConstants() {
+        let authorizationHeader = "f98a61b368447706734d7bb4d04552dbdbe443f04715378370515ed27337e2a2"
+        let cookieHeader = "_redis=s%3AlSOM3XKAJ_sJHXWvHHbO6VPlsVq8CC6P.fC%2BfjdLiTQLRaSRH%2BDyI7L4dGkfVwfmiTDM4vUN7Tqo"
+
+        KeychainService.shared.save(value: authorizationHeader, key: "Authorization")
+        KeychainService.shared.save(value: cookieHeader, key: "Cookie")
     }
 }
 

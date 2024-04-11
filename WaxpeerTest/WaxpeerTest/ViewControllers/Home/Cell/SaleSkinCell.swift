@@ -6,25 +6,27 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SaleSkinCell: UICollectionViewCell {
-    let rareStackView = UIStackView()
-    let rareLabelStackView = UIStackView()
-    let rareCategoryLabel = UILabel()
-    let rareValueLabel = UILabel()
-    let rareProgressView = UIView()
+    private var skinInfoStackView = UIStackView()
+    private var skinInfoLabelStackView = UIStackView()
+    private var gameName = UILabel()
+    private var itemId = UILabel()
+    private var skinInfoProgressView = UIView()
     
-    let modelStackView = UIStackView()
-    let imageView = UIImageView()
-    let modelLabel = UILabel()
-    let modelNameLabel = UILabel()
-    let modelSeperatorView = UIView()
-
-    let priceLabel = UILabel()
-    let steamIcon = UIImageView()
-    let steamPriceLabel = UILabel()
-    let discountLabel = PaddingLabel()
-   
+    private var imageView = UIImageView()
+    private var itemNameStackView = UIStackView()
+    private var itemNameLabel = UILabel()
+    private var marketNameLabel = UILabel()
+    private var modelSeperatorView = UIView()
+    
+    private var priceContainerView = UIView()
+    private var priceLabel = UILabel()
+    private var steamIcon = UIImageView()
+    private var steamPriceLabel = UILabel()
+    private var discountLabel = PaddingLabel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,44 +40,44 @@ class SaleSkinCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        rareCategoryLabel.textColor = R.color.wpGray()
-        rareCategoryLabel.font = .systemFont(ofSize: 10, weight: .regular)
-        rareCategoryLabel.text = "WW"
+        gameName.textColor = R.color.wpGray()
+        gameName.font = .systemFont(ofSize: 10, weight: .regular)
+        gameName.text = "WW"
         
-        rareValueLabel.textAlignment = .right
-        rareValueLabel.textColor = .white
-        rareValueLabel.font = .systemFont(ofSize: 10, weight: .regular)
-        rareValueLabel.text = "0,456784"
+        itemId.textAlignment = .right
+        itemId.textColor = .white
+        itemId.font = .systemFont(ofSize: 10, weight: .regular)
+        itemId.text = "0,456784"
         
-        rareLabelStackView.addArrangedSubview(rareCategoryLabel)
-        rareLabelStackView.addArrangedSubview(rareValueLabel)
-        rareLabelStackView.distribution = .fillEqually
-        rareLabelStackView.axis = .horizontal
+        skinInfoLabelStackView.addArrangedSubview(gameName)
+        skinInfoLabelStackView.addArrangedSubview(itemId)
+        skinInfoLabelStackView.distribution = .fillEqually
+        skinInfoLabelStackView.axis = .horizontal
         
-        rareProgressView.backgroundColor = R.color.wpGreen()
-       
-        rareStackView.addArrangedSubview(rareLabelStackView)
-        rareStackView.addArrangedSubview(rareProgressView)
-        rareStackView.axis = .vertical
-        rareStackView.spacing = 4
-        contentView.addSubview(rareStackView)
+        skinInfoProgressView.backgroundColor = R.color.wpGreen()
         
-        modelLabel.textColor = R.color.wpGray()
-        modelLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        modelLabel.text = "M4SW-A"
+        skinInfoStackView.addArrangedSubview(skinInfoLabelStackView)
+        skinInfoStackView.addArrangedSubview(skinInfoProgressView)
+        skinInfoStackView.axis = .vertical
+        skinInfoStackView.spacing = 4
+        contentView.addSubview(skinInfoStackView)
         
-        modelNameLabel.textColor = .white
-        modelNameLabel.font = .systemFont(ofSize: 12, weight: .semibold)
-        modelNameLabel.text = "Imminent Danger"
+        itemNameLabel.textColor = R.color.wpGray()
+        itemNameLabel.numberOfLines = 2
+        itemNameLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        
+        marketNameLabel.numberOfLines = 2
+        marketNameLabel.textColor = .white
+        marketNameLabel.font = .systemFont(ofSize: 12, weight: .semibold)
         
         modelSeperatorView.backgroundColor = R.color.wpGray()?.withAlphaComponent(0.7)
         
-        modelStackView.addArrangedSubview(modelLabel)
-        modelStackView.addArrangedSubview(modelNameLabel)
-        modelStackView.addArrangedSubview(modelSeperatorView)
-        modelStackView.axis = .vertical
-        modelStackView.spacing = 4
-        contentView.addSubview(modelStackView)
+        itemNameStackView.addArrangedSubview(itemNameLabel)
+        itemNameStackView.addArrangedSubview(marketNameLabel)
+        itemNameStackView.addArrangedSubview(modelSeperatorView)
+        itemNameStackView.axis = .vertical
+        itemNameStackView.spacing = 8
+        contentView.addSubview(itemNameStackView)
         
         imageView.contentMode = .scaleAspectFit
         imageView.image = R.image.tomUIIX()
@@ -83,24 +85,24 @@ class SaleSkinCell: UICollectionViewCell {
         
         priceLabel.textColor = .white
         priceLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        priceLabel.text = "$ 1 287.93"
-        contentView.addSubview(priceLabel)
-    
+        priceContainerView.addSubview(priceLabel)
+        
         steamIcon.contentMode = .scaleAspectFit
         steamIcon.image = R.image.steam()
-        contentView.addSubview(steamIcon)
+        priceContainerView.addSubview(steamIcon)
         
         steamPriceLabel.textColor = R.color.wpGray()
         steamPriceLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        steamPriceLabel.text = "$ 8 287.93"
-        contentView.addSubview(steamPriceLabel)
+        priceContainerView.addSubview(steamPriceLabel)
+        
+        priceContainerView.backgroundColor = .clear
+        contentView.addSubview(priceContainerView)
         
         discountLabel.textColor = R.color.wpGreen()
         discountLabel.textAlignment = .center
         discountLabel.font = .systemFont(ofSize: 12, weight: .semibold)
         discountLabel.layer.masksToBounds = true
         discountLabel.layer.cornerRadius = 8
-        discountLabel.text = "-76%"
         discountLabel.padding(4, 4, 8, 8)
         discountLabel.backgroundColor = R.color.wpGreen()?.withAlphaComponent(0.2)
         contentView.addSubview(discountLabel)
@@ -109,21 +111,21 @@ class SaleSkinCell: UICollectionViewCell {
     private func setConstraints() {
         var layoutContratints = [NSLayoutConstraint]()
         
-        rareStackView.translatesAutoresizingMaskIntoConstraints = false
+        skinInfoStackView.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            rareStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            rareStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rareStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            skinInfoStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            skinInfoStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            skinInfoStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
-        rareProgressView.translatesAutoresizingMaskIntoConstraints = false
+        skinInfoProgressView.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            rareProgressView.heightAnchor.constraint(equalToConstant: 2)
+            skinInfoProgressView.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            imageView.topAnchor.constraint(equalTo: rareStackView.bottomAnchor, constant: 8),
+            imageView.topAnchor.constraint(equalTo: skinInfoStackView.bottomAnchor, constant: 8),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageView.heightAnchor.constraint(equalToConstant: AppConstants.shared.screenHeight/4)
@@ -134,18 +136,26 @@ class SaleSkinCell: UICollectionViewCell {
             modelSeperatorView.heightAnchor.constraint(equalToConstant: 0.5)
         ]
         
-        modelStackView.translatesAutoresizingMaskIntoConstraints = false
+        itemNameStackView.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            modelStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            modelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            modelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            itemNameStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            itemNameStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            itemNameStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
-
+        
+        priceContainerView.translatesAutoresizingMaskIntoConstraints = false
+        layoutContratints += [
+            priceContainerView.topAnchor.constraint(greaterThanOrEqualTo: itemNameStackView.bottomAnchor, constant: 8),
+            priceContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            priceContainerView.trailingAnchor.constraint(lessThanOrEqualTo: discountLabel.leadingAnchor, constant: 4),
+            priceContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        ]
+        
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            priceLabel.topAnchor.constraint(equalTo: modelStackView.bottomAnchor, constant: 8),
-            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            priceLabel.trailingAnchor.constraint(lessThanOrEqualTo: discountLabel.leadingAnchor, constant: 4)
+            priceLabel.topAnchor.constraint(equalTo: priceContainerView.topAnchor),
+            priceLabel.leadingAnchor.constraint(equalTo: priceContainerView.leadingAnchor),
+            priceLabel.trailingAnchor.constraint(equalTo: priceContainerView.trailingAnchor)
         ]
         
         steamIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -153,6 +163,7 @@ class SaleSkinCell: UICollectionViewCell {
             steamIcon.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 4),
             steamIcon.leadingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
             steamIcon.trailingAnchor.constraint(equalTo: steamPriceLabel.leadingAnchor, constant: -2),
+            steamIcon.bottomAnchor.constraint(equalTo: priceContainerView.bottomAnchor),
             steamIcon.heightAnchor.constraint(equalToConstant: 16),
             steamIcon.widthAnchor.constraint(equalToConstant: 16)
         ]
@@ -165,10 +176,27 @@ class SaleSkinCell: UICollectionViewCell {
         
         discountLabel.translatesAutoresizingMaskIntoConstraints = false
         layoutContratints += [
-            discountLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
+            discountLabel.centerYAnchor.constraint(equalTo: priceContainerView.centerYAnchor),
             discountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         NSLayoutConstraint.activate(layoutContratints)
+    }
+    
+    func configure(_ viewModel: SkinItemModel) {
+        let discount = viewModel.discount
+        gameName.text = viewModel.game
+        itemId.text = viewModel.itemId?.valueAsString
+        discountLabel.backgroundColor = discount.color?.withAlphaComponent(0.2)
+        discountLabel.textColor = discount.color
+        discountLabel.text = discount.value
+        itemNameLabel.text = viewModel.name
+        marketNameLabel.text = viewModel.marketName
+        priceLabel.text = viewModel.currencyPrice
+        steamPriceLabel.text = viewModel.currencySteamPrice
+        
+        if let imageURLString = viewModel.image {
+            imageView.sd_setImage(with: imageURLString, placeholderImage: R.image.csgo())
+        }
     }
 }

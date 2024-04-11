@@ -6,13 +6,15 @@
   
 */
 
-//Gen
-
+//General
+"gen_errorTitle" = "Error";
+"gen_errorItemId" = "Failed to decode ItemIdentifier";
 
 //Home
 "home_title" = "Home";
 "home_activateBtn" = "Activate live";
 "home_disactivateBtn" = "Pause live";
+"home_retryBtn" = "Please retry";
 
 //Inventory
 "inventory_title" = "Inventory";

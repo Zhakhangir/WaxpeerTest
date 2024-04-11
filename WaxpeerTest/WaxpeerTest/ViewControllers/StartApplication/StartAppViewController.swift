@@ -20,7 +20,7 @@ class StartApplicationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        animateNumbers(duration: 0.7)
+        animateNumbers(duration: 3.7)
     }
     
     
@@ -52,8 +52,8 @@ class StartApplicationViewController: UIViewController {
         let tabBar = TabBarConrtoller()
         guard let window = view.window else { return }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
                 window.rootViewController = tabBar
             }, completion: nil)
         }

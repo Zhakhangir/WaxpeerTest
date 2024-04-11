@@ -13,10 +13,11 @@ class TwoColumnFlowLayout: UICollectionViewFlowLayout {
         super.prepare()
         
         guard let collectionView = collectionView else { return }
-        let availableWidth = collectionView.bounds.width - sectionInset.left - sectionInset.right - minimumInteritemSpacing
+        let itemHeight = AppConstants.shared.screenHeight/2
+        let availableWidth = AppConstants.shared.screenWidth - sectionInset.left - sectionInset.right - minimumInteritemSpacing
         let itemWidth = (availableWidth / 2).rounded(.down)
     
-        itemSize = CGSize(width: itemWidth, height: 400)
+        itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {

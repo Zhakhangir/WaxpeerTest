@@ -14,4 +14,5 @@ class AppConstants {
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    let socketURL = URL(string: "wss://waxpeer.com/socket.io")
 }
