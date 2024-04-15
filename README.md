@@ -1,7 +1,3 @@
-Certainly! A README file is crucial for any project repository as it provides important information about the project, its setup, and usage. Here's an example of what a README file for an iOS project repository named "Waxpeer Test" might look like:
-
----
-
 # Waxpeer Test iOS Project
 
 ## Overview
